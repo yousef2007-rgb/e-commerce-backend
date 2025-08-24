@@ -40,7 +40,9 @@ const Code = mongoose.model("Code", codeSchema);
 const signupSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().pattern(new RegExp('^(?=.{8,100}$)(?! )(?!.* $)[\x20-\x7E]+$')).required(), 
+    password: Joi.string().pattern(new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\\[\\]:;\"'<,>.?~`\\-|\\\\/])[^\\s].{6,}[^\\s]$"))
+        .required()
+        .messages({"string.pattern.base": "Your password must be at least 8 characters long and must contain a mix of at least one letter, one number, and one special character (e.g., !@#$%^&*). It cannot contain spaces."}),
     repeat_password: Joi.ref("password"),
     number: Joi.number().required(),
     address: Joi.string().required(),
@@ -68,7 +70,9 @@ const signupSchema = Joi.object({
 const signupSchemaWithCode = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().pattern(new RegExp('^(?=.{8,100}$)(?! )(?!.* $)[\x20-\x7E]+$')).required(), 
+    password: Joi.string().pattern(new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\\[\\]:;\"'<,>.?~`\\-|\\\\/])[^\\s].{6,}[^\\s]$"))
+        .required()
+        .messages({"string.pattern.base": "Your password must be at least 8 characters long and must contain a mix of at least one letter, one number, and one special character (e.g., !@#$%^&*). It cannot contain spaces."}),
     repeat_password: Joi.ref("password"),
     number: Joi.number().required(),
     address: Joi.string().required(),
@@ -96,7 +100,9 @@ const signupSchemaWithCode = Joi.object({
 
 const signinSchema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().pattern(new RegExp('^(?=.{8,100}$)(?! )(?!.* $)[\x20-\x7E]+$')).required(), 
+    password: Joi.string().pattern(new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\\[\\]:;\"'<,>.?~`\\-|\\\\/])[^\\s].{6,}[^\\s]$"))
+        .required()
+        .messages({"string.pattern.base": "Your password must be at least 8 characters long and must contain a mix of at least one letter, one number, and one special character (e.g., !@#$%^&*). It cannot contain spaces."}),
 })
 
 

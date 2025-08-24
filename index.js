@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express();
 const mongoose = require("mongoose")
-//const signin = require("./routes/signin.js")
+const signin = require("./routes/signin.js")
 const signup = require("./routes/signup.js")
+const errorHandler = require("./middleware/errorHandler.js")
 
 app.use(express.json())
-//app.use("/signin",signin )
+app.use("/signin",signin )
 app.use("/signup", signup)
+app.use(errorHandler)
 
 require("dotenv").config();
 mongoose.connect("mongodb://localhost:27017/baby")
