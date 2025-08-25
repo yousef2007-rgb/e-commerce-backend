@@ -3,6 +3,7 @@ const router = express.Router();
 const _ = require("underscore");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
+const authMiddleware = require("../middleware/authentication.js")
 const {signinSchema, User} = require("../models/users.js")
 
 router.post("/",async (req, res, next ) => {
@@ -31,5 +32,12 @@ router.post("/",async (req, res, next ) => {
         next(err)
     }
 });
+
+router.get("/auth-test", authMiddleware,async (userData, req, res, next) => {
+    
+    console.log(userData)
+    console.log(req.body)
+    res.send("someting")
+})
 
 module.exports = router;
