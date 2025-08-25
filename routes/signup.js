@@ -14,7 +14,7 @@ router.post("/",async (req, res, next) => {
 
         //validation using joi
         const {error} = signupSchemaWithCode.validate(req.body)
-        if (error) {return res.status(500).send(error.details[0].message)}
+        if (error) {return res.status(400).send(error.details[0].message)}
 
         //checking if the user already exists
         const userCheck = await User.findOne({'email': requestBody.email});
@@ -33,7 +33,7 @@ router.post("/",async (req, res, next) => {
         const code = await Code.findOne({_id: codeId})
         if(code.value != req.body.code) {
             await Code.findByIdAndDelete(codeId._id);
-            return res.status(500).send("wrong code")
+            return res.status(400).send("wrong code")
         }
 
         await Code.findByIdAndDelete(codeId._id);
@@ -63,11 +63,11 @@ router.post("/code", async (req, res, next) => {
 
         //validation using joi
         const {error} = signupSchema.validate(requestBody)
-        if (error) {return res.status(500).send(error.details[0].message)}
+        if (error) {return res.status(400).send(error.details[0].message)}
 
         //checking if the user already exists
         const userCheck = await User.findOne({'email': requestBody.email});
-        if(userCheck) {return res.status(500).send("this user already exists")}
+        if(userCheck) {return res.status(400).send("this user already exists")}
         //generate code and add it to the database
         const generatedCode =Math.floor( Math.random() * 1000000 ).toString().padStart(6,'0');  
         const code = new Code({value: generatedCode});

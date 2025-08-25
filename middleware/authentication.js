@@ -11,7 +11,7 @@ const authentication = async (req, res, next) => {
 
         next(decoded)
     }catch(err){
-        return res.status(401).send("unauthenticated please sign in to continue")
+        return res.status(500).send(`something went wrong ${err}`)
     }
 }
 
