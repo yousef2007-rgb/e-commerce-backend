@@ -18,7 +18,7 @@ router.post("/",async (req, res, next) => {
 
         //checking if the user already exists
         const userCheck = await User.findOne({'email': requestBody.email});
-        //if(userCheck) {return res.status(500).send("this user already exists")}
+        if(userCheck) {return res.status(400).send("this user already exists")}
 
         //verify code
         const codeToken = req.headers['x-code-token'];
