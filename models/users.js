@@ -43,7 +43,14 @@ const signupSchema = Joi.object({
     password: Joi.string().pattern(new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\\[\\]:;\"'<,>.?~`\\-|\\\\/])[^\\s].{6,}[^\\s]$"))
         .required()
         .messages({"string.pattern.base": "Your password must be at least 8 characters long and must contain a mix of at least one letter, one number, and one special character (e.g., !@#$%^&*). It cannot contain spaces."}),
-    repeat_password: Joi.ref("password"),
+    repeate_password: Joi.any()
+    .valid(Joi.ref("password"))
+    .required()
+    .label("Confirm Password")
+    .messages({
+      "any.only": "Passwords do not match",
+      "any.required": "Please confirm your password"
+    }),
     number: Joi.number().required(),
     address: Joi.string().required(),
     city: Joi.string().required().valid(
@@ -73,8 +80,14 @@ const signupSchemaWithCode = Joi.object({
     password: Joi.string().pattern(new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\\[\\]:;\"'<,>.?~`\\-|\\\\/])[^\\s].{6,}[^\\s]$"))
         .required()
         .messages({"string.pattern.base": "Your password must be at least 8 characters long and must contain a mix of at least one letter, one number, and one special character (e.g., !@#$%^&*). It cannot contain spaces."}),
-    repeat_password: Joi.ref("password"),
-    number: Joi.number().required(),
+    repeate_password:Joi.any()
+    .valid(Joi.ref("password"))
+    .required()
+    .label("Confirm Password")
+    .messages({
+      "any.only": "Passwords do not match",
+      "any.required": "Please confirm your password"
+    }),    number: Joi.number().required(),
     address: Joi.string().required(),
     city: Joi.string().required().valid(
             "Amman",

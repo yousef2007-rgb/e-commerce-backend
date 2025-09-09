@@ -10,7 +10,7 @@ require("dotenv").config();
 router.post("/",async (req, res, next) => {
     try{
         //pick just the values I need from the request body
-        const requestBody = _.pick(req.body, ["name", "email", "password", "repeat_password", "number", "city", "address"])
+        const requestBody = _.pick(req.body, ["name", "email", "password", "repeate_password", "number", "city", "address"])
 
         //validation using joi
         const {error} = signupSchemaWithCode.validate(req.body)
@@ -59,7 +59,7 @@ router.post("/code", async (req, res, next) => {
     try{
 
         //pick just the values I need from the request body
-        const requestBody = _.pick(req.body, ["name", "email", "password", "repeat_password", "number", "city", "address"])
+        const requestBody = _.pick(req.body, ["name", "email", "password", "repeate_password", "number", "city", "address"])
 
         //validation using joi
         const {error} = signupSchema.validate(requestBody)

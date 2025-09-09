@@ -7,6 +7,7 @@ const authMiddleware = require("../middleware/authentication.js")
 const authorizationMiddleware = require("../middleware/authorization.js")
 const {signinSchema, User} = require("../models/users.js")
 
+
 router.post("/",async (req, res, next ) => {
     try{
         const requestBody = _.pick(req.body, ['email', 'password']);
@@ -35,11 +36,11 @@ router.post("/",async (req, res, next ) => {
 });
 
 router.get("/auth-test", authMiddleware,async (userData, req, res, next) => {
-    
     console.log(userData)
     console.log(req.body)
     res.send("someting")
 })
+
 
 router.get("/authorization-test", authorizationMiddleware,async (userData, req, res, next) => {
     
