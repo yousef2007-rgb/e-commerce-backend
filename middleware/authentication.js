@@ -9,7 +9,7 @@ const authentication = async (req, res, next) => {
         const decoded = await jwt.verify(token, process.env.JWT_KEY);
         if(!decoded) { return res.status(401).send("unauthenticated please sign in to continue")}
 
-        next(decoded)
+        next()
     }catch(err){
         return res.status(500).send(`something went wrong ${err}`)
     }

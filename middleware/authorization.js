@@ -8,8 +8,7 @@ const authorization = async (req,res, next ) => {
         const decoded = await jwt.verify(token, process.env.JWT_KEY);
         if(!decoded) {return res.status(401).send("unauthenticated please sign in to continue 2")}
         if(!decoded.isAdmin) { return res.status(403).send("unauthorized to access")}
-
-        next(decoded);
+        next();
     }catch(err){
         return res.status(401).send("unauthenticated please sign in to continue 3")
     }

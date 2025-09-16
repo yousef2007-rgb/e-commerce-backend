@@ -1,8 +1,7 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const joi = require("joi");
 
-const userSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     title: {type: String, required: true },
     title_ar: {type: String, required: false },
     details: {type: String, required: false },
@@ -10,16 +9,18 @@ const userSchema = new mongoose.Schema({
     price: {type: Number, required: true },
     listed_price: {type: Number, required: false },
     tags: {type: [String], required:false,},
+    keywords: {type: [String], required:false,},
     hidden: {type: Boolean, required: true , default: false},
     related: { type: [String], required: false },
-    varients: { type: [mongoose.objectId], required: true}
-}); 
+    varients_ids: { type: [mongoose.Schema.ObjectId], required: true},
+    category_id: {type: mongoose.Schema.ObjectId, required: true}, 
+    }); 
 
 const varientSchema = new mongoose.Schema({
     varient_title: {type: String, required: true },
     varient_title_ar: {type: String, required: false },
     image_url: {type: String, required: true},
-    image_urls: {type: [String], required: false}.
+    image_urls: {type: [String], required: false},
     sku: {type: String, required:true},
     availability: {type: String,enum: ["in_stock", "out_of_stock", "comming_soon"], required: true , default: true},
     quantity: {type:Number, required: false, default: -1}, 
@@ -27,10 +28,10 @@ const varientSchema = new mongoose.Schema({
     dimensions: {type: String, required: false},
 }); 
 
-const User = mongoose.model("User", userSchema);
+const Product = mongoose.model("Product", productSchema);
 const Varient = mongoose.model("Varient", varientSchema);
 
-const userValidation = joi.object({
+const productValidationSchema = joi.object({
     title: joi.string().required(),
     title_ar: joi.string(),
     details:joi.string(),
@@ -38,9 +39,10 @@ const userValidation = joi.object({
     price: joi.number().required(),
     listed_price: joi.number(),
     tags: joi.array().items(joi.string()),
+    keywords: joi.array().items(joi.string()),
     hidden: joi.boolean(),
     related: joi.array().items(joi.string()), 
-    varients: joi.array().items(joi.object({
+    varients_ids: joi.array().items(joi.object({
         varient_title: joi.string().required(),
         varient_title_ar: joi.string(),
         image_url: joi.string(),
@@ -51,6 +53,7 @@ const userValidation = joi.object({
         hidden: joi.boolean(),
         dimensions:joi.string(),
     })).required(), 
+    category_id: joi.string().required(),
 });
 
-module.exports = {User, Varient, userValidation }
+module.exports = {Product, Varient,  productValidationSchema}
