@@ -18,7 +18,6 @@ app.use(express.static("uploads"))
 
 app.use(errorHandler);
 
-
 require("dotenv").config();
 mongoose
   .connect("mongodb://localhost:27017/baby")

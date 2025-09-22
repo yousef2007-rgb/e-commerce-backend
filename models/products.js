@@ -42,9 +42,10 @@ const productValidationSchema = joi.object({
     hidden: joi.boolean(),
     related: joi.array().items(joi.string()), 
     varients_ids: joi.array().items(joi.object({
+        id:joi.string(),
         varient_title: joi.string().required(),
         varient_title_ar: joi.string(),
-        images_urls:joi.array().items(joi.string()),
+        images_urls:joi.array().items(joi.string()).required(),
         sku:joi.string().required(),
         availability: joi.string().valid("in_stock", "out_of_stock", "comming_soon"),
         quantity: joi.number(),
